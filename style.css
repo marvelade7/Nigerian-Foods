@@ -1,0 +1,129 @@
+* {
+    scrollbar-width: none;
+}
+
+body {
+    background-color: rgba(239, 224, 218, 0.174) !important;
+}
+
+header {
+    background: url(Image/bg-2.png) repeat no-repeat center center;
+    background-size: cover;
+    padding: 20px 100px;
+    color: white;
+}
+
+.main-content {
+    margin: 70px auto 100px;
+}
+
+ul button {
+    background-color: rgb(249, 110, 59)
+}
+
+ul button:hover {
+    background-color: rgb(240, 87, 31)
+}
+
+.card {
+    transition: .3s;
+    max-height: 620px;
+    overflow-y: scroll;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(165, 42, 42, 0.178) !important;
+    /* border: 1px solid brown !important; */
+    transform: scale(1.02);
+}
+
+span {
+    color: rgb(248, 142, 104);
+}
+
+nav ul li {
+    list-style: none;
+}
+
+li a, ul button {
+    transition: .15s;
+    font-size: 1.1em;
+}
+
+li a:hover {
+    color: rgb(248, 142, 104) !important;
+}
+
+.main-content input:focus {
+    border: none;
+    outline: none;
+}
+
+.view-details {
+    background-color: rgb(235, 99, 49);
+    border: 3px solid rgb(235, 99, 49);
+    border: none;
+    margin-top: 15px;
+    /* margin-bottom: 5px; */
+    color: white;
+    padding: 5px 0;
+}
+
+.view-details:hover {
+    background-color: rgb(185, 88, 53);
+}
+
+#displayFoods {
+    row-gap: 40px ;
+    column-gap: 25px ;
+}
+
+section {
+    padding: 50px 70px;
+}
+
+select {
+    padding: 7px 5px;
+    border-radius: 5px;
+    width: 15%;
+}
+
+#foodInfo {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 40px 40px;
+    border-radius: 10px;
+    background-color: rgba(248, 142, 104, 0.155);
+    /* position: fixed;
+    z-index: 1000; */
+
+}
+
+.back {
+    font-size: 1.1em;
+    cursor: pointer;
+    opacity: .7;
+    width: auto;
+    height: auto;
+}
+
+.back:hover {
+    opacity: 1;
+}
+
+#favouriteBtn {
+    background-color: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    color: rgba(0, 0, 0, 0.7);
+    transition: .15s;
+}
+
+#favouriteBtn:hover {
+    border: 1px solid brown;
+    outline: 1px solid brown;
+}
+
+#favouriteBtn i {
+    color: brown;
+}
