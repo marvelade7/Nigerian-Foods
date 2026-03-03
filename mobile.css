@@ -1,0 +1,256 @@
+@media (min-width: 769px) and (max-width: 1024px) {
+    header {
+        padding: 20px 40px;
+    }
+    nav h3 {
+        font-size: 1.7em !important;
+    }
+
+    header nav ul li a {
+        font-size: 1em !important;
+    }
+
+        nav button {
+            padding: 2px 15px !important;
+        }
+
+        .main-content {
+            margin: 80px auto 20px;
+            width: 70% !important;
+        }
+
+        .main-content h2 {
+            font-size: 1.5em !important;
+        }
+
+        .main-content p {
+            font-size: 1.1em !important;
+        }
+
+        #filter div {
+            display: flex !important;
+            justify-content: left !important;
+            flex-wrap: wrap;
+            padding: 10px !important;
+        }
+
+        section {
+            padding: 20px 30px;
+        }
+
+        select {
+            padding: 3px 5px;
+            width: auto;
+        }
+
+        label {
+            padding: 3px 5px !important;
+        }
+
+        .btn.btn-dark.ms-5 {
+            margin: 5px 0 !important;
+        }
+
+        #displayFoods {
+            display: flex !important;
+            column-gap: 50px;
+            row-gap: 40px;
+            padding: 20px !important;
+        }
+
+            #displayFoods .card {
+                width: 320px !important;
+            }
+}
+
+@media (min-width: 701px) and (max-width: 768px) {
+    header {
+        padding: 20px 30px;
+    }
+    nav h3 {
+        font-size: 1.4em !important;
+    }
+
+    header nav ul li a {
+        font-size: 1em !important;
+
+        nav button {
+            padding: 2px 15px !important;
+        }
+
+        .main-content {
+            margin: 80px auto 20px;
+            width: 70% !important;
+        }
+
+        .main-content h2 {
+            font-size: 1.5em !important;
+        }
+
+        .main-content p {
+            font-size: 1.1em !important;
+        }
+
+        #filter div {
+            display: flex !important;
+            justify-content: left !important;
+            flex-wrap: wrap;
+            padding: 10px !important;
+        }
+
+        section {
+            padding: 20px 30px;
+        }
+
+        select {
+            padding: 3px 5px;
+            /* border-radius: 5px; */
+            width: auto;
+        }
+
+        label {
+            padding: 3px 5px !important;
+        }
+
+        .btn.btn-dark.ms-5 {
+            margin: 5px 0 !important;
+        }
+
+        #displayFoods {
+            display: grid !important;
+            justify-content: left;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 20px;
+            row-gap: 40px;
+            padding: 20px !important;
+        }
+
+        #displayFoods .card {
+            width: 300px !important;
+        }
+    }
+}
+
+@media (min-width: 481px) and (max-width: 700px) {
+    header {
+        padding: 20px 30px;
+    }
+    nav h3 {
+        font-size: 1.4em !important;
+    }
+
+    header nav ul {
+        display: none !important;
+    }
+
+    nav button {
+        padding: 2px 15px !important;
+    }
+
+    .main-content {
+        margin: 80px auto 20px;
+        width: 85% !important;
+    }
+
+    .main-content h2 {
+        font-size: 1.5em !important;
+    }
+
+    .main-content p {
+        font-size: 1.1em !important;
+    }
+
+    #filter div {
+        display: flex !important;
+        justify-content: left !important;
+        flex-wrap: wrap;
+        padding: 10px !important;
+    }
+
+    section {
+        padding: 20px 30px;
+    }
+
+    select {
+        padding: 3px 5px;
+        width: auto;
+    }
+
+    label {
+        padding: 3px 5px !important;
+    }
+
+    .btn.btn-dark.ms-5 {
+        margin: 5px 0 !important;
+    }
+
+    #displayFoods {
+        padding: 0 !important;
+        row-gap: 40px;
+        column-gap: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 10px 20px;
+    }
+    nav h3 {
+        font-size: 1.2em !important;
+    }
+
+    header nav ul {
+        display: none !important;
+    }
+
+    nav button {
+        padding: 2px 15px !important;
+    }
+
+    .main-content {
+        margin: 80px auto 20px;
+        width: 100% !important;
+    }
+
+    .main-content h2 {
+        font-size: 1.5em !important;
+    }
+
+    .main-content p {
+        font-size: 1.1em !important;
+    }
+
+    #filter div {
+        display: flex !important;
+        justify-content: start !important;
+        flex-wrap: wrap;
+        padding: 10px !important;
+    }
+
+    section {
+        padding: 20px 10px;
+    }
+
+    select {
+        padding: 3px 5px;
+        width: 47%;
+    }
+
+    label {
+        padding: 3px 5px !important;
+        width: 47%;
+    }
+
+    .btn.btn-dark.ms-5 {
+        margin: 5px 0 !important;
+    }
+
+    #displayFoods {
+        padding: 0 !important;
+        gap: 20px;
+    }
+
+    #displayFoods .card {
+        width: 100%;
+    }
+}

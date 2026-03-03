@@ -13,15 +13,29 @@ header {
     color: white;
 }
 
+nav h3 {
+    font-size: 2em;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    gap: 3em;
+}
+
 .main-content {
     margin: 70px auto 100px;
+    width: 60%;
+    text-align: center;
 }
 
-ul button {
-    background-color: rgb(249, 110, 59)
+nav button {
+    background-color: rgb(249, 110, 59);
+    padding: 5px 30px;
 }
 
-ul button:hover {
+nav button:hover {
     background-color: rgb(240, 87, 31)
 }
 
@@ -87,6 +101,12 @@ select {
     padding: 7px 5px;
     border-radius: 5px;
     width: 15%;
+}
+
+label {
+    padding: 7px 10px;
+    width: auto;
+    justify-content: space-between;
 }
 
 #foodInfo {
