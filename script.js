@@ -68,11 +68,11 @@ const display = async () => {
     const foods = await result.json();
     // console.log(foods);
     const allFoods = foods.data;
-    setTimeout(() => {
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>;
-    }, 3000);
+    // setTimeout(() => {
+    //     <div class="spinner-border" role="status">
+    //         <span class="visually-hidden">Loading...</span>
+    //     </div>;
+    // }, 3000);
     renderFoods(allFoods);
 };
 
