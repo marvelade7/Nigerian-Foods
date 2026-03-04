@@ -61,20 +61,34 @@ const renderFoods = (foodArray) => {
             </div>
         `;
     }
+    console.log("Rendering foods:", foodArray.length);
 };
 
+const spinner = document.getElementById("spinnerContainer");
+const displayFoods = document.getElementById("displayFoods");
+
 const display = async () => {
-    const result = await fetch(baseUrl);
-    const foods = await result.json();
-    // console.log(foods);
-    const allFoods = foods.data;
-    // setTimeout(() => {
-    //     <div class="spinner-border" role="status">
-    //         <span class="visually-hidden">Loading...</span>
-    //     </div>;
-    // }, 3000);
-    renderFoods(allFoods);
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
+
+    try {
+        const result = await fetch(baseUrl);
+        const foods = await result.json();
+        const allFoods = foods.data;
+
+        renderFoods(allFoods);
+    } catch (error) {
+        console.log(error);
+        displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods <button onclick='display()' class='btn btn-secondary'>Retry</button></p>
+            
+        `;
+    } finally {
+        spinner.style.display = "none";
+        displayFoods.style.display = "flex";
+    }
 };
+display();
 
 const showFoodDetails = async (val) => {
     let meal = `${foodIdUrl}${encodeURIComponent(val)}`;
@@ -166,7 +180,7 @@ const showFoodDetails = async (val) => {
 
                                 </ul>
                             </div>
-                            <button id="favouriteBtn" class=" w-100 py-2 rounded-3 mt-4 "><i class="bi bi-heart "></i>
+                            <button style='cursor:pointer;' id="favouriteBtn" class=" w-100 py-2 rounded-3 mt-4 "><i class="bi bi-heart "></i>
                                 Add
                                 to Favourites</button>
                         </div>
@@ -179,19 +193,31 @@ const showFoodDetails = async (val) => {
 // showFoodDetails()
 
 const searchFoods = async (e) => {
-    const result = await fetch(baseUrl);
-    const foods = await result.json();
-    const allFoods = foods.data;
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
 
-    const searchInput = e.target.value;
-    // console.log(e.target.value);
-    let userSearch = allFoods.filter((food) =>
-        food.name.toLowerCase().includes(searchInput.toLowerCase()),
-    );
-    renderFoods(userSearch);
+    try {
+        const result = await fetch(baseUrl);
+        const foods = await result.json();
+        const allFoods = foods.data;
+
+        const searchInput = e.target.value;
+        // console.log(e.target.value);
+        let userSearch = allFoods.filter((food) =>
+            food.name.toLowerCase().includes(searchInput.toLowerCase()),
+        );
+        renderFoods(userSearch);
+    } catch (error) {
+        console.log(error);
+        displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods <button onclick='display()' class='btn btn-secondary'>Retry</button></p>
+            
+        `;
+    } finally {
+        spinner.style.display = "none";
+        displayFoods.style.display = "flex";
+    }
 };
-
-display();
 
 function clearFilters() {
     display();
@@ -202,47 +228,81 @@ function clearFilters() {
 
     displayFoods.innerHTML = "";
 }
-display();
+// display();
 
 const mealCategory = document.getElementById("mealCategory");
 const filterByCategory = async () => {
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
     if (mealCategory.value === 0) {
         display();
     } else {
-        let selectedCategory = mealCategory.value.toLowerCase();
-        let meal = `${foodCategoryUrl}${encodeURIComponent(selectedCategory)}`;
-
-        const result = await fetch(meal);
-        const foods = await result.json();
-        renderFoods(foods.data);
+        try {
+            let selectedCategory = mealCategory.value.toLowerCase();
+            let meal = `${foodCategoryUrl}${encodeURIComponent(selectedCategory)}`;
+            const result = await fetch(meal);
+            const foods = await result.json();
+            renderFoods(foods.data);
+        } catch (error) {
+            displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods 
+        <button onclick='display()' class='btn btn-secondary'>Retry</button></p>     `;
+        } finally {
+            spinner.style.display = "none";
+            displayFoods.style.display = "flex";
+        }
     }
 };
-
-filterByCategory();
+// filterByCategory();
 
 const mealRegion = document.getElementById("mealRegion");
 const filterByRegion = async () => {
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
     if (mealRegion.value === 0) {
         display();
     } else {
-        let selectedCategory = mealRegion.value.toLowerCase();
-        let meal = `${foodRegionUrl}${encodeURIComponent(selectedCategory)}`;
-        const result = await fetch(meal);
-        const foods = await result.json();
-        renderFoods(foods.data);
+        try {
+            let selectedCategory = mealRegion.value.toLowerCase();
+            let meal = `${foodRegionUrl}${encodeURIComponent(selectedCategory)}`;
+            const result = await fetch(meal);
+            const foods = await result.json();
+            renderFoods(foods.data);
+        } catch (error) {
+            displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods 
+        <button onclick='display()' class='btn btn-secondary'>Retry</button></p>     `;
+        } finally {
+            spinner.style.display = "none";
+            displayFoods.style.display = "flex";
+        }
     }
 };
 
-filterByRegion();
+// filterByRegion();
 
 const vegetarian = document.getElementById("vegetarian");
 vegetarian.addEventListener("change", async () => {
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
     if (vegetarian.checked) {
-        let meal = `${vegUrl}`;
+        try {
+            let meal = `${vegUrl}`;
 
-        const result = await fetch(meal);
-        const foods = await result.json();
-        renderFoods(foods.data);
+            const result = await fetch(meal);
+            const foods = await result.json();
+            const allFoods = foods.data
+            renderFoods(allFoods);
+        } catch (error) {
+            console.log(error);
+            displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods <button onclick='display()' class='btn btn-secondary'>Retry</button></p>
+            
+        `;
+        } finally {
+            spinner.style.display = "none";
+            displayFoods.style.display = "flex";
+        }
     } else {
         vegetarian.value === 0;
         display();
@@ -251,12 +311,26 @@ vegetarian.addEventListener("change", async () => {
 
 const spicy = document.getElementById("spicy");
 spicy.addEventListener("change", async () => {
+    spinner.style.display = "flex";
+    displayFoods.style.display = "none";
     if (spicy.checked) {
-        let meal = `${spicyUrl}`;
+        try {
+            let meal = `${spicyUrl}`;
 
-        const result = await fetch(meal);
-        const foods = await result.json();
-        renderFoods(foods.data);
+            const result = await fetch(meal);
+            const foods = await result.json();
+            const allFoods = foods.data
+            renderFoods(allFoods);
+        } catch (error) {
+            console.log(error);
+            displayFoods.innerHTML = `
+        <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods <button onclick='display()' class='btn btn-secondary'>Retry</button></p>
+            
+        `;
+        } finally {
+            spinner.style.display = "none";
+            displayFoods.style.display = "flex";
+        }
     } else {
         spicy.value === 0;
         display();

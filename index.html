@@ -39,7 +39,8 @@
 
     <section>
 
-        <h3 class="mt-5 mb-3 text-center">Popular Dishes</h3>
+        <h3 class="mb-3 text-center">Popular Dishes</h3>
+
         <div id="filter">
             <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center">
                 <select onchange="filterByCategory()" name="" id="mealCategory">
@@ -74,13 +75,20 @@
             </div>
         </div>
 
-        <div id="displayFoods" class="d-flex flex-wrap align-items-start justify-content-center my-4 "></div>
+
+        <div id="spinnerContainer" class=" justify-content-center align-items-center"
+            style="display: flex; height: 100px;">
+            <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div id="displayFoods" style="display: flex;" class=" flex-wrap align-items-start justify-content-center my-5 ">
+        </div>
 
         <!-- Scrollable modal -->
         <div class="modal fade" id="foodDisplay" tabindex="1">
-            <div id="modalDialog" class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            
-            </div>
+            <div id="modalDialog" class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"></div>
         </div>
 
 
