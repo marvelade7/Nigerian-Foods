@@ -258,5 +258,28 @@
 
     #displayFoods .card {
         width: 100%;
+
     }
+    .card-img-modal {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .modal-body {
+        padding: 0 !important;
+    }
+
+    #spinnerOverlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1055; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 }

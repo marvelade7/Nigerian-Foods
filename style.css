@@ -46,10 +46,17 @@ nav button:hover {
 }
 
 .card:hover {
-    cursor: pointer;
     box-shadow: 10px 10px 20px rgba(165, 42, 42, 0.178) !important;
-    /* border: 1px solid brown !important; */
-    transform: scale(1.02);
+    transform: translate(0px, -10px);
+}
+
+.card-img {
+    transition: .3s;
+}
+
+.card-img:hover {
+    /* box-shadow: 10px 10px 20px rgba(165, 42, 42, 0.178) !important; */
+    transform: scale(1.04);
 }
 
 span {
@@ -67,25 +74,6 @@ li a, ul button {
 
 li a:hover {
     color: rgb(248, 142, 104) !important;
-}
-
-.main-content input:focus {
-    border: none;
-    outline: none;
-}
-
-.view-details {
-    background-color: rgb(235, 99, 49);
-    border: 3px solid rgb(235, 99, 49);
-    border: none;
-    margin-top: 15px;
-    /* margin-bottom: 5px; */
-    color: white;
-    padding: 5px 0;
-}
-
-.view-details:hover {
-    background-color: rgb(185, 88, 53);
 }
 
 #displayFoods {
@@ -147,4 +135,51 @@ label {
 
 #favouriteBtn i {
     color: brown;
+}
+
+#viewDetails {
+    font-weight: bold;
+    /* text-decoration: underline; */
+}
+
+#viewDetails:hover {
+    color: brown;
+    cursor: pointer;
+}
+
+.bi-heart, .bi-heart-fill {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.bi-heart-fill {
+    transform: scale(1.2);
+}
+
+#removeFavorite {
+    display: none;
+}
+
+#userSearch:focus {
+    border: none;
+    outline: none;
+}
+
+.input-container:has(input:focus) {
+    outline: 2px solid rgb(249, 110, 59);
+}
+
+#spinnerOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1055; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 30px auto; */
 }
