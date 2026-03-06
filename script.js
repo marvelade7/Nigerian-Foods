@@ -8,6 +8,10 @@ const spicyUrl = "https://mongotest2026.vercel.app/api/foods/filter/spicy/";
 const spinner = document.getElementById("spinnerContainer");
 const displayFoods = document.getElementById("displayFoods");
 
+let favoriteFoods = localStorage["favoriteFoods"]
+    ? JSON.parse(localStorage.getItem("favoriteFoods"))
+    : [];
+
 const showSpinner = () => {
     document.getElementById("spinnerOverlay").style.display = "flex";
 };
@@ -15,10 +19,6 @@ const showSpinner = () => {
 const hideSpinner = () => {
     document.getElementById("spinnerOverlay").style.display = "none";
 };
-
-let favoriteFoods = localStorage["favoriteFoods"]
-    ? JSON.parse(localStorage.getItem("favoriteFoods"))
-    : [];
 
 // Function that renders all food
 const renderFoods = (foodArray) => {
@@ -44,15 +44,15 @@ const renderFoods = (foodArray) => {
         displayFoods.innerHTML += `
             <div title='Click to see more information' class=" card border-none rounded-3 shadow-lg"
                 style="width: 320px; border: none; background-color: rgba(241, 206, 206, 0.17);">
-                <img src="${imagePath}" alt="${element.name}-img" class="card-img " style="position: sticky; top: 0; width: 320px; height: 300px;">
+                <img src="${imagePath}" alt="${element.name}-img" class="card-img " style="width: 320px; height: 300px;">
                 <div class="card-body">
                     <div class='d-flex justify-content-between align-items-start fs-5'>
                         <h5 class="card-title fw-bold">${element.name}</h5>
                         <i onclick="addToFavorite(this, ${element.id})" class= "bi ${isFavorited ? "bi-heart-fill text-danger" : "bi-heart text-danger"}"></i> 
                     </div>
-                    <div class="d-flex flex-wrap align-items-center gap-2 fw-semibold">
+                    <div class="d-flex flex-wrap align-items-center fw-semibold">
                         <p class="m-0">${element.category}</p>
-                        <p class="m-0">.</p>
+                        <p class="m-0"><i class="bi bi-dot"></i></p>
                         <p class="m-0">${element.region}</p>
                     </div>
 
@@ -78,13 +78,14 @@ const renderFoods = (foodArray) => {
             </div>
         `;
     }
-    // console.log("Rendering foods:", foodArray.length);
 };
 
 // Displays all foods on load of the page
 const display = async () => {
     showSpinner();
     displayFoods.style.display = "none";
+    document.getElementById("showFavoriteFoods").textContent = "See Favorites";
+    document.getElementById("removeAllFavorites").style.display = "none";
 
     try {
         document.getElementById("sectionHeader").textContent = `Popular Dishes`;
@@ -97,7 +98,7 @@ const display = async () => {
     } catch (error) {
         console.log(error);
         displayFoods.innerHTML = `
-                <p class=' text-danger fs-5 w-50 text-center'>Failed to load popular dishes, 
+                <p class=' text-danger fs-5 w-50 text-center'>Failed to load dishes, 
                 <a href='' onclick='display()' class=' text-danger'>retry</a></p>
             `;
     } finally {
@@ -140,9 +141,9 @@ const showFoodDetails = async (val) => {
                      style="width: 350px; height: 330px;">
                 <div class=''>
                     <h5 class="card-title fw-bold">${food.name}</h5>
-                    <div class="d-flex flex-wrap align-items-center gap-2 fw-semibold">
+                    <div class="d-flex flex-wrap align-items-center fw-semibold">
                         <p class="m-0">${food.category}</p>
-                        <p class="m-0">.</p>
+                        <p class="m-0"><i class="bi bi-dot"></i></p>
                         <p class="m-0">${food.region}</p>
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr;"
@@ -260,20 +261,37 @@ const searchFoods = async (e) => {
     try {
         const result = await fetch(baseUrl);
         const foods = await result.json();
-        const allFoods = foods.data;
+        const allFoods = foods.data || [];
 
-        const searchInput = e.target.value;
-        // console.log(e.target.value);
-        let userSearch = allFoods.filter((food) =>
-            food.name.toLowerCase().includes(searchInput.toLowerCase()),
+        const searchInput = e.target.value.toLowerCase();
+        if (searchInput === "") {
+            display();
+            return;
+        }
+
+        let userSearch = allFoods.filter(
+            (food) =>
+                food.name.toLowerCase().includes(searchInput) ||
+                food.description.toLowerCase().includes(searchInput),
         );
-        renderFoods(userSearch);
+
+        // THIS handles empty search results
+        if (userSearch.length === 0) {
+            displayFoods.innerHTML =
+                "<h5 class='text-center mt-4'>Food not found</h5>";
+            window.location.href = "#dishes";
+        } else {
+            renderFoods(userSearch);
+            window.location.href = "#dishes";
+        }
     } catch (error) {
-        console.log(error);
+        // THIS handles real errors like network issues
         displayFoods.innerHTML = `
-                <p class=' text-danger fs-5 w-50 text-center'>Failed to load foods, 
-                <a href='' onclick='searchFoods()' class=' text-danger'>retry</a></p>
-            `;
+        <p class='text-danger fs-5 w-50 text-center'>
+            Failed to load foods, 
+            <a href='' onclick='searchFoods(e)' class='text-danger'>retry</a>
+        </p>
+    `;
     } finally {
         hideSpinner();
         displayFoods.style.display = "flex";
@@ -284,8 +302,8 @@ const searchFoods = async (e) => {
 function clearFilters() {
     display();
     mealCategory.value = 0;
-    spicy.value === 0;
-    vegetarian.value === 0;
+    spicy.checked = false;
+    vegetarian.checked = false;
     mealRegion.value = 0;
 
     displayFoods.innerHTML = "";
@@ -307,6 +325,7 @@ const filterByCategory = async () => {
             const result = await fetch(meal);
             const foods = await result.json();
             renderFoods(foods.data);
+            window.location.href = "#dishes";
         } catch (error) {
             displayFoods.innerHTML = `
                 <p class=' text-danger fs-5 w-50 text-center'>Failed to load ${mealCategory} foods, 
@@ -335,6 +354,7 @@ const filterByRegion = async () => {
             const result = await fetch(meal);
             const foods = await result.json();
             renderFoods(foods.data);
+            window.location.href = "#dishes";
         } catch (error) {
             displayFoods.innerHTML = `
                 <p class=' text-danger fs-5 w-50 text-center'>Failed to load ${mealRegion.value} foods, 
@@ -362,6 +382,7 @@ vegetarian.addEventListener("change", async () => {
             const foods = await result.json();
             const allFoods = foods.data;
             renderFoods(allFoods);
+            window.location.href = "#dishes";
         } catch (error) {
             console.log(error);
             displayFoods.innerHTML = `
@@ -393,6 +414,7 @@ spicy.addEventListener("change", async () => {
             const foods = await result.json();
             const allFoods = foods.data;
             renderFoods(allFoods);
+            window.location.href = "#dishes";
         } catch (error) {
             console.log(error);
             displayFoods.innerHTML = `
@@ -426,6 +448,7 @@ function showToast(message) {
 // Function to add favorite foods to an array
 const addToFavorite = async (icon, val) => {
     const isFavorited = icon.classList.contains("bi-heart-fill");
+    showSpinner()
 
     try {
         if (!isFavorited) {
@@ -460,6 +483,9 @@ const addToFavorite = async (icon, val) => {
     } catch (error) {
         console.error(error);
         showToast("⚠️ Network error. Please try again.");
+    } finally {
+        hideSpinner()
+
     }
 
     console.log(favoriteFoods);
@@ -470,6 +496,7 @@ const addToFavorite = async (icon, val) => {
 const showFavoriteFoods = document.getElementById("showFavoriteFoods");
 showFavoriteFoods.addEventListener("click", () => {
     if (showFavoriteFoods.textContent == "See Favorites") {
+        document.getElementById("removeAllFavorites").style.display = "block";
         displayFoods.style.display = "none";
         showSpinner();
 
@@ -496,9 +523,55 @@ showFavoriteFoods.addEventListener("click", () => {
             displayFoods.style.display = "flex";
             hideSpinner();
         }
+        window.location.href = "#dishes";
         showFavoriteFoods.textContent = "Close Favorites";
     } else {
-        display();
+        document.getElementById("removeAllFavorites").style.display = "none";
         showFavoriteFoods.textContent = "See Favorites";
+        display();
+    }
+});
+
+const removeAllFavorites = () => {
+    favoriteFoods = [];
+    localStorage.setItem("favoriteFoods", JSON.stringify(favoriteFoods)); // sync with localStorage if used
+    displayFoods.innerHTML = `   <h5 class='text-center mt-4'>No favorites found</h5>
+            <button class="btn btn-danger mt-3" onclick="display()">Browse Foods</button>
+        `;
+    showToast("All favorites cleared");
+
+    document.getElementById("removeAllFavorites").style.display = "none";
+};
+
+const scrollBtn = document.getElementById("scrollBtn");
+
+window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const scrollHeight = document.body.scrollHeight;
+    const clientHeight = window.innerHeight;
+
+    // Show button only after scrolling a bit
+    if (scrollTop > 100) {
+        scrollBtn.style.display = "block";
+
+        // If closer to bottom, scroll up; else scroll down
+        if (scrollTop + clientHeight > scrollHeight / 2) {
+            scrollBtn.textContent = "▲"; // go to top
+        } else {
+            scrollBtn.textContent = "▼"; // go to bottom
+        }
+    } else {
+        scrollBtn.style.display = "none"; // hide near top
+    }
+});
+
+scrollBtn.addEventListener("click", () => {
+    if (scrollBtn.textContent === "▲") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+        });
     }
 });

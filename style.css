@@ -1,5 +1,6 @@
 * {
     scrollbar-width: none;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -36,13 +37,11 @@ nav button {
 }
 
 nav button:hover {
-    background-color: rgb(240, 87, 31)
+    background-color: rgb(240, 87, 31);
 }
 
 .card {
-    transition: .3s;
-    max-height: 620px;
-    overflow-y: scroll;
+    transition: 0.3s;
 }
 
 .card:hover {
@@ -51,7 +50,7 @@ nav button:hover {
 }
 
 .card-img {
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .card-img:hover {
@@ -67,8 +66,9 @@ nav ul li {
     list-style: none;
 }
 
-li a, ul button {
-    transition: .15s;
+li a,
+ul button {
+    transition: 0.15s;
     font-size: 1.1em;
 }
 
@@ -77,8 +77,8 @@ li a:hover {
 }
 
 #displayFoods {
-    row-gap: 40px ;
-    column-gap: 25px ;
+    row-gap: 40px;
+    column-gap: 25px;
 }
 
 section {
@@ -105,13 +105,12 @@ label {
     background-color: rgba(248, 142, 104, 0.155);
     /* position: fixed;
     z-index: 1000; */
-
 }
 
 .back {
     font-size: 1.1em;
     cursor: pointer;
-    opacity: .7;
+    opacity: 0.7;
     width: auto;
     height: auto;
 }
@@ -124,7 +123,7 @@ label {
     background-color: transparent;
     border: 1px solid rgba(128, 128, 128, 0.5);
     color: rgba(0, 0, 0, 0.7);
-    transition: .15s;
+    transition: 0.15s;
     cursor: pointer;
 }
 
@@ -147,7 +146,8 @@ label {
     cursor: pointer;
 }
 
-.bi-heart, .bi-heart-fill {
+.bi-heart,
+.bi-heart-fill {
     cursor: pointer;
     transition: transform 0.2s ease;
 }
@@ -156,7 +156,8 @@ label {
     transform: scale(1.2);
 }
 
-#removeFavorite {
+#removeFavorite,
+#removeAllFavorites{
     display: none;
 }
 
@@ -177,9 +178,30 @@ label {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 1055; 
+    z-index: 2055;
     display: flex;
     justify-content: center;
     align-items: center;
     /* margin: 30px auto; */
+}
+
+.scroll-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(229, 69, 11);
+    color: white;
+    cursor: pointer;
+    opacity: 0.8;
+    display: none; /* hidden initially */
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.scroll-btn:hover {
+    opacity: 1;
 }
