@@ -49,15 +49,6 @@ nav button:hover {
     transform: translate(0px, -10px);
 }
 
-.card-img {
-    transition: 0.3s;
-}
-
-.card-img:hover {
-    /* box-shadow: 10px 10px 20px rgba(165, 42, 42, 0.178) !important; */
-    transform: scale(1.04);
-}
-
 span {
     color: rgb(248, 142, 104);
 }
